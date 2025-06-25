@@ -2,50 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Redirecting to Woloo App...</title>
+  <title>Download Woloo App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 100px;
-    }
-  </style>
   <script>
-    function redirectToApp() {
+    function redirectToStore() {
       const ua = navigator.userAgent || navigator.vendor || window.opera;
-      const isiOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
-      const isAndroid = /android/i.test(ua);
 
-      // Woloo URI scheme - make sure your app supports this in AndroidManifest.xml and Info.plist
-      const appScheme = "woloo://home";
       const androidStoreURL = "https://play.google.com/store/apps/details?id=com.woloo.smarthygiene";
       const iosStoreURL = "https://apps.apple.com/in/app/woloo-smart-hygiene/id6469696133";
 
-      const fallbackTimeout = 2000;
-
-      if (isAndroid) {
-        window.location.href = appScheme;
-        setTimeout(() => {
-          window.location.href = androidStoreURL;
-        }, fallbackTimeout);
-      } else if (isiOS) {
-        window.location.href = appScheme;
-        setTimeout(() => {
-          window.location.href = iosStoreURL;
-        }, fallbackTimeout);
+      if (/android/i.test(ua)) {
+        window.location.href = androidStoreURL;
+      } else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        window.location.href = iosStoreURL;
       } else {
-        // Desktop fallback
+        // Optional: Fallback for desktop users
         window.location.href = "https://www.woloo.in";
       }
     }
 
-    // Trigger redirection once page loads
-    window.onload = redirectToApp;
+    window.onload = redirectToStore;
   </script>
 </head>
 <body>
-  <h2>Launching Woloo...</h2>
-  <p>If nothing happens, <a href="https://www.woloo.in">click here</a>.</p>
+  <h2>Redirecting to the Woloo app store page...</h2>
 </body>
 </html>
